@@ -1,0 +1,117 @@
+<div class="feedback-container" *ngIf="params === 'feed-back'">
+  <h3 class="fs-3">Hey {{ currentUser.firstName }} Have a great day!</h3>
+  <div class="feedback-sub-container">
+    <p><span class="fw-medium">Name :</span> {{ currentUser.firstName }}</p>
+    <p><span class="fw-medium">Mobile :</span> {{ currentUser.mobile }}</p>
+    <p><span class="fw-medium">Email :</span> {{ currentUser.email }}</p>
+    <form action="" [formGroup]="feedBackForm">
+      <div class="form-field">
+        <p class="fw-medium">Content :</p>
+        <textarea
+          class="form-control border-black"
+          formControlName="content"
+          name=""
+          id=""
+          cols="30"
+          rows="4"
+        ></textarea>
+        <p
+          class="text-danger"
+          *ngIf="
+            submitted && feedBackForm.controls?.['content']?.status == 'INVALID'
+          "
+        >
+          Please Select an Issue Type
+        </p>
+      </div>
+      <div class="form-field">
+        <p class="fw-medium">Issue Type :</p>
+        <select
+          class="form-select border-black"
+          name=""
+          id=""
+          formControlName="SelectIssue"
+        >
+          <option value="">Select an Issue Type</option>
+          <option [value]="issue" *ngFor="let issue of IssueType">
+            {{ issue }}
+          </option>
+        </select>
+
+        <p
+          class="text-danger"
+          *ngIf="
+            submitted &&
+            feedBackForm.controls?.['SelectIssue']?.status == 'INVALID'
+          "
+        >
+          Please Select an Issue Type
+        </p>
+      </div>
+      <div class="form-field form-control form-label">
+        File :
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          formControlName="file"
+          (change)="SelectedImage($event)"
+        />
+      </div>
+    </form>
+    <button class="btn btn-info" (click)="SubmitFeedBack()">Submit</button>
+  </div>
+</div>
+<div
+  class="check-feedback-container"
+  *ngIf="params == 'feed-back-list' && !FullDetails"
+>
+  <button class="btn btn-danger" (click)="gotoback()">Back</button>
+  <app-table
+    class="table"
+    [data]="feedBackData"
+    [tableColumns]="feedbackcolumns"
+    (detailsClick)="GotoFullDetails($event)"
+  >
+    <ng-template let-element>
+      <div class="feed-back" *ngIf="element.files.length > 1">
+        <img
+          src="data:{{ element.files[0].mimetype }};base64,{{
+            element.files[0].buffer
+          }}"
+        />
+        <span *ngIf="element.files.length"
+          >{{ element.files.length - 1 }} more</span
+        >
+      </div>
+      <div class="feed-back" *ngIf="element.files.length == 1">
+        <img
+          src="data:{{ element.files[0].mimetype }};base64,{{
+            element.files[0].buffer
+          }}"
+        />
+      </div>
+      <div class="feed-back" *ngIf="element.files.length == 0">
+        <span>No Image</span>
+      </div>
+    </ng-template>
+  </app-table>
+</div>
+<div *ngIf="FullDetails" class="feedback-details-container">
+  <button class="btn btn-danger" (click)="gotoback()">Back</button>
+  <h3 class="text-center fs-2 fw-lighter">
+    Hey Hi {{ SelectedfeedBackData?.sender?.name }} Thanks you for Visiting..
+  </h3>
+  <div class="feedback-data">
+    <p><label>Name :</label>{{ SelectedfeedBackData.sender.name }}</p>
+    <p><label>IssueType :</label>{{ SelectedfeedBackData.type }}</p>
+    <p>
+      <label>Time :</label>
+      {{ SelectedfeedBackData.time | date: "dd/MM/yyyy hh:mm a" }}
+    </p>
+    <p><label>Content :</label>{{ SelectedfeedBackData.content }}</p>
+    <p *ngFor="let file of SelectedfeedBackData.files">
+      <img src="data:image/jpeg;base64,{{ file.buffer }}" alt="NoImage" />
+    </p>
+  </div>
+</div>

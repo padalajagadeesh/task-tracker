@@ -1,0 +1,134 @@
+<div class="header-content d-flex justify-content-between" *ngIf="userDetails">
+  <button class="header-toggle-btn" (click)="memuClick()">
+    <span><i class="fa-solid fa-bars"></i></span>
+  </button>
+  <h1
+    class="title"
+    (click)="gotDashBoard()"
+    mat-raised-button
+    matTooltip=" Go to Dashboard"
+  >
+    Resource One IT Solutions
+  </h1>
+  <ng-container>
+    <div class="admin-info d-flex align-items-center">
+      <div class="admin-status" *ngIf="isAdmin">
+        <button class="btn btn-success d-flex align-items-center">
+          <span title="Available"></span>
+          Available
+        </button>
+      </div>
+      <div class="user" *ngIf="!isAdmin">
+        <button
+          mat-button
+          [matMenuTriggerFor]="Status"
+          mat-flat-button
+          color="primary"
+        >
+          {{ SelectedStatus ? SelectedStatus : "Available" }} &#9660;
+        </button>
+        <mat-menu #Status>
+          <button
+            mat-menu-item
+            (click)="SelectStatus(status)"
+            *ngFor="let status of adminStatus"
+            [ngClass]="status"
+          >
+            {{ status }}
+          </button>
+          <button mat-menu-item [matMenuTriggerFor]="invertebrates">
+            Break
+          </button>
+        </mat-menu>
+
+        <mat-menu #invertebrates>
+          <button
+            (click)="SelectStatus(break)"
+            mat-menu-item
+            *ngFor="let break of Breaks"
+          >
+            {{ break }}
+          </button>
+        </mat-menu>
+        <span *ngIf="StartTimer">
+          <span
+            class="fw-bold text-bg-success p-2 m-1"
+            [ngClass]="textColor ? 'text-bg-danger' : ''"
+            >{{ format(Minutes) }}:{{ format(Seconds) }}
+          </span>
+        </span>
+      </div>
+      <div
+        class="admin-profile d-flex align-items-center"
+        appModelClose
+        (clickOutside)="closeModel()"
+      >
+        <div (click)="profileData()" class="d-flex">
+          <img
+            class="admin-pic"
+            crossorigin="anonymous"
+            src="{{ url }}/{{ userDetails.profileImageUrl }}"
+          />
+          <h4 class="btn btn-danger" class="admin-name">
+            Profile:<span *ngIf="!isProfile"><i class="fa-solid fa-chevron-down"></i></span>
+            <span *ngIf="isProfile"><i class="fa-solid fa-chevron-up"></i></span>
+          </h4>
+        </div>
+        <div class="admin-profile-info" *ngIf="isProfile">
+          <h4>{{ userDetails.isAdmin === true ? "Admin" : "User" }} Details</h4>
+          <ul>
+            <div class="Main_profile">
+              <img
+                class="profile_img"
+                crossorigin="anonymous"
+                src="{{ url }}/{{ userDetails.profileImageUrl }}"
+              />
+              <span (click)="edit_ProfileImg()"
+                ><i class="fa-solid fa-user-pen"></i
+              ></span>
+            </div>
+
+            <li><label>Employee Id :</label> {{ userDetails.empId }}</li>
+            <li><label>First Name :</label> {{ userDetails.firstName }}</li>
+            <li><label>Last Name :</label> {{ userDetails.lastName }}</li>
+            <li><label>E Mail :</label> {{ userDetails.email }}</li>
+            <li><label>Mobile :</label> {{ userDetails.mobile }}</li>
+            <li><label>Desgination :</label> {{ userDetails.designation }}</li>
+          </ul>
+          <div class="admin-in-out">
+            <button (click)="logout()" class="btn btn-danger">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #ticketModel let-d="dismiss">
+  <div class="modal-header p-2 m-0">
+    <h4 class="modal-title p-0 m-0">Upload image</h4>
+  </div>
+  <div class="modal-body m-2">
+    <div class="Main_profile text-center m-2">
+      <img
+        *ngIf="!imageUrl"
+        class="profile_img"
+        crossorigin="anonymous"
+        src="{{ url }}/{{ userDetails.profileImageUrl }}"
+      />
+      <img width="100%" class="profile_img" *ngIf="imageUrl" [src]="imageUrl" />
+    </div>
+    <input
+      #Image
+      type="file"
+      (change)="handleFileInput($event)"
+      class="form-control m-2"
+    />
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-sm btn-primary" (click)="UploadImg(d)">
+      Update image
+    </button>
+    <button class="btn btn-sm btn-danger" (click)="cancel(d)">Cancel</button>
+  </div>
+</ng-template>

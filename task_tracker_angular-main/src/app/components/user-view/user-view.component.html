@@ -1,0 +1,143 @@
+<div class="back-btn d-flex justify-content-between align-items-center">
+  <button (click)="goback()" class="btn btn-danger">Go To Back</button>
+  <div class="view_btns">
+    <button
+      (click)="UserRequests(ADMIN_MESSAGES)"
+      [ngClass]="SelectedRequests === ADMIN_MESSAGES ? 'selected-Color' : ''"
+    >
+      Admin Messages
+    </button>
+    <button
+      (click)="UserRequests(TICKETREQUESTMESSAGES)"
+      [ngClass]="
+        SelectedRequests === TICKETREQUESTMESSAGES ? 'selected-Color' : ''
+      "
+    >
+      Ticket Request
+    </button>
+    <button
+      (click)="UserRequests(CHATMESSAGES)"
+      [ngClass]="SelectedRequests === CHATMESSAGES ? 'selected-Color' : ''"
+    >
+      Chat Request
+    </button>
+  </div>
+</div>
+<div class="User-ViewRequest">
+  <div
+    class="User-ChatRequest w-100 position-relative"
+    *ngIf="SelectedRequests === CHATMESSAGES"
+  >
+    <ol>
+      <li *ngFor="let chatrequest of userChatRequest; let i = index">
+        <div class="d-flex justify-content-between align-items-center m-2">
+          <p>
+            {{ chatrequest.sender.name }} is Requisting to Chat with
+            {{ chatrequest.opponent.name }}
+          </p>
+          <div *ngIf="chatrequest.isPending == true" class="isPending">
+            <button
+              class="btn btn-sm btn-success"
+              disabled="chatrequest.isPending == true"
+            >
+              Not Approved
+            </button>
+          </div>
+          <div *ngIf="chatrequest.isPending == false">
+            <button
+              class="btn btn-sm btn-success"
+              (click)="chatRequestApproved(chatrequest)"
+            >
+              Approved
+            </button>
+          </div>
+        </div>
+      </li>
+      <h2 *ngIf="userChatRequest?.length <= 0">No Ticket Request Data</h2>
+      <ngx-spinner
+        bdColor="rgba(0,0,0,0.32)"
+        size="large"
+        color="#8652d5"
+        type="ball-clip-rotate-multiple"
+        [fullScreen]="false"
+      >
+      </ngx-spinner>
+    </ol>
+  </div>
+  <div
+    class="User-TicketRequest w-100 position-relative"
+    *ngIf="SelectedRequests === TICKETREQUESTMESSAGES"
+  >
+    <ol>
+      <li *ngFor="let ticketrequest of userTicketRequest; let i = index">
+        <div class="d-flex justify-content-between align-items-center m-2">
+          <p>
+            {{ ticketrequest.sender.name }} is Requisting for
+            {{ ticketrequest.client.name }}
+          </p>
+          <div *ngIf="ticketrequest.isPending == true" class="isPending">
+            <button
+              class="btn btn-sm btn-success"
+              disabled="ticketrequest.isPending == true"
+            >
+              Not Approved
+            </button>
+          </div>
+          <div *ngIf="ticketrequest.isPending == false">
+            <button
+              class="btn btn-sm btn-success"
+              (click)="ticketRequestApproved(ticketrequest)"
+            >
+              Approved
+            </button>
+          </div>
+        </div>
+      </li>
+      <h2 *ngIf="userTicketRequest?.length <= 0">No Ticket Request Data</h2>
+      <ngx-spinner
+        bdColor="rgba(0,0,0,0.32)"
+        size="large"
+        color="#8652d5"
+        type="ball-clip-rotate-multiple"
+        [fullScreen]="false"
+      >
+      </ngx-spinner>
+    </ol>
+  </div>
+  <div
+    class="User-Messages w-100 position-relative"
+    *ngIf="SelectedRequests === ADMIN_MESSAGES"
+  >
+    <ol>
+      <li *ngFor="let messages of adminMessages; let i = index">
+        <div
+          class="message d-flex justify-content-between align-items-center m-2"
+        >
+          <div>
+            <p>Message : {{ messages.content }}</p>
+            <p>Sent By :{{ messages.sender.name }}</p>
+            <p>Time :{{ messages.time | date: "dd/MM/yyy hh:mm a" }}</p>
+          </div>
+          <div>
+            <button
+              class="btn btn-primary"
+              [disabled]="messages.viewedBy.includes(currentuser._id)"
+              (click)="updateMessage(messages)"
+            >
+              Seen
+            </button>
+          </div>
+        </div>
+      </li>
+      <h2 *ngIf="adminMessages?.length <= 0">No Ticket Request Data</h2>
+      <ngx-spinner
+        bdColor="rgba(0,0,0,0.32)"
+        size="large"
+        color="#8652d5"
+        type="ball-clip-rotate-multiple"
+        [fullScreen]="false"
+      >
+      </ngx-spinner>
+    </ol>
+  </div>
+</div>

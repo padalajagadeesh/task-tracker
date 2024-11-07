@@ -1,0 +1,147 @@
+<div class="spinner-div">
+  <ngx-spinner
+    bdColor="rgba(0,0,0,0.32)"
+    size="large"
+    color="#8652d5"
+    type="ball-clip-rotate-multiple"
+    [fullScreen]="false"
+  >
+  </ngx-spinner>
+  <div class="scrollable-table">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8"
+      *ngIf="dataSource"
+    >
+      <ng-container
+        *ngFor="let disCol of tableColumns; let colIndex = index"
+        matColumnDef="{{ disCol.columnDef }}"
+      >
+        <th class="bg-dark-subtle" mat-header-cell *matHeaderCellDef>
+          <span *ngIf="disCol.columnDef !== 'TicketRaised'">
+            {{ disCol.header | titlecase }}
+          </span>
+          <span *ngIf="disCol.columnDef == 'TicketRaised'">
+            <button
+              (click)="btn3Click(disCol.columnDef)"
+              mat-raised-button
+              color="accent"
+            >
+              {{ disCol.header }}
+            </button>
+          </span>
+        </th>
+        <tr>
+          <td mat-cell *matCellDef="let element">
+            <span (click)="NameClick(element)" *ngIf="disCol.isText">
+              {{ disCol.cell(element) }}
+            </span>
+            <div>
+              <span
+                matTooltip=" click here"
+                aria-label="Displays a tooltip"
+                style="cursor: pointer"
+                (click)="NameClick(element)"
+                *ngIf="disCol.isMouseOver"
+              >
+                {{ disCol.cell(element) }}
+              </span>
+            </div>
+            <p>
+              <a
+                href="javascript:void(0)"
+                (click)="Description(element)"
+                *ngIf="disCol.isLink"
+                >Client Description</a
+              >
+            </p>
+            <p>
+              <a
+                href="javascript:void(0)"
+                (click)="Details(element)"
+                *ngIf="disCol.isDetails"
+                >Click Details</a
+              >
+            </p>
+            <span
+              class="cell-btn-group d-flex align-items-center"
+              *ngIf="disCol.isMultiButton"
+            >
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="btn1Click(element)"
+                [disabled]="element.isClosed"
+              >
+                {{ disCol.cell("btn1") }}
+              </button>
+              <button
+                mat-raised-button
+                color="warn"
+                (click)="btn2Click(element)"
+                [disabled]="element.isClosed"
+              >
+                {{ disCol.cell("btn2") }}
+              </button>
+            </span>
+            <span *ngIf="disCol.isButton">
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="onClick(element, disCol.cell(element))"
+              >
+                {{ disCol.cell(element) }}
+              </button>
+            </span>
+            <p *ngIf="disCol.isTemplate">
+              <ng-template
+                [ngTemplateOutlet]="templateRef"
+                [ngTemplateOutletContext]="{ $implicit: element }"
+              ></ng-template>
+            </p>
+            <p
+              class="d-flex"
+              *ngIf="disCol.isImage"
+              (click)="openUserDetails(element)"
+            >
+              <img
+                *ngIf="disCol.cell(element)"
+                src="{{ url }}/{{ disCol.cell(element) }}"
+                class="profileImage"
+                crossorigin="anonymous"
+              />
+              <img
+                *ngIf="!disCol.cell(element)"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvEqncZEwNmacOsxcOyUMD7z2JiZF4-Z6PVRBu2KZnlxcFU5SZipi_yd4aV0kzwJL17BI&usqp=CAU"
+                class="profileImage"
+              />
+              <span [ngClass]="element.isActive ? 'online' : 'offline'"></span>
+            </p>
+          </td>
+        </tr>
+      </ng-container>
+      <tr class="mat-row no-data" *matNoDataRow>
+        <td
+          class="mat-cell p-3 text-black"
+          [attr.colspan]="displayedColumns.length"
+        >
+          No data
+        </td>
+      </tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+      <tr
+        class="columns"
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+      ></tr>
+    </table>
+  </div>
+  <mat-paginator
+    *ngIf="dataSource && nextpaginator"
+    [hidden]="!dataSource.data.length"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    [pageSize]="5"
+  ></mat-paginator>
+</div>

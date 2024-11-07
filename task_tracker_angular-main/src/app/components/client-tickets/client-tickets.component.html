@@ -1,0 +1,22 @@
+<button (click)="goback()" class="btn btn-danger back">
+  <i class="fa fa-arrow-left" aria-hidden="true"></i> back
+</button>
+<div class="client-details" *ngIf="clientDataTable">
+  <div>
+    <p>Client Details</p>
+    <p>CompanyName: {{ clientDataTable.companyName }}</p>
+    <p>First Name : {{ clientDataTable.firstName }}</p>
+    <p>Email : {{ clientDataTable.email }}</p>
+    <p>Phone : {{ clientDataTable.mobile }}</p>
+  </div>
+  <div class="pieChart">
+    <app-pie-chart
+      *ngIf="clientTicketById?.length"
+      [pieChartId]="'piechart'"
+      [PieChartData]="ClientPieChart"
+    ></app-pie-chart>
+  </div>
+</div>
+<div>
+  <app-tickets></app-tickets>
+</div>

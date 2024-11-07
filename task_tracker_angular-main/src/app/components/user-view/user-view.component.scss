@@ -1,0 +1,95 @@
+h1 {
+  text-align: center;
+}
+
+.back-btn {
+  padding: 20px 20px 0;
+
+  .view_btns {
+    button {
+      padding: 5px 10px;
+      border: 0;
+      border-radius: 5px;
+      background: #a094e9d9;
+      color: #fff;
+      margin: 0 8px;
+    }
+    .selected-Color {
+      background: #614bf1d9;
+    }
+  }
+}
+
+.User-ViewRequest {
+  display: flex;
+  margin-top: 17px;
+  gap: 5px;
+
+  .User-ChatRequest {
+    box-shadow: 0 0 5px;
+    border-radius: 7px;
+    margin: 0 12px 0 16px;
+    height: 550px;
+    overflow: auto;
+
+    h1 {
+      text-align: center;
+      padding: 6px 0;
+      text-decoration: underline;
+    }
+  }
+
+  .User-TicketRequest {
+    box-shadow: 0 0 5px;
+    border-radius: 7px;
+    margin: 0 12px 0 16px;
+    height: 550px;
+    overflow: auto;
+
+    h1 {
+      text-align: center;
+      padding: 6px 0;
+      text-decoration: underline;
+    }
+  }
+
+  .User-Messages {
+    box-shadow: 0 0 5px;
+    border-radius: 7px;
+    margin: 0 12px 0 16px;
+    height: 550px;
+    overflow: auto;
+
+    h1 {
+      text-align: center;
+      padding: 6px 0;
+      text-decoration: underline;
+    }
+  }
+}
+
+ol {
+  margin: 10px;
+
+  li {
+    border-bottom: 1px solid darkgray;
+
+    .message {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .isPending {
+        margin: 6px 0;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      span {
+        margin: 0 36px 0 0;
+      }
+    }
+  }
+}

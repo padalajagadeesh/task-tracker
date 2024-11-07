@@ -1,0 +1,184 @@
+<h1>Welcome To View Request Page</h1>
+<div class="Back d-flex justify-content-between align-items-center">
+  <button (click)="goback()" class="btn btn-danger">Go To Back</button>
+  <div class="view_btns">
+    <button
+      (click)="AdminRequests(ADMIN_MESSAGES)"
+      [ngClass]="seletedRequests === ADMIN_MESSAGES ? 'selected_color' : ''"
+    >
+      Admin Messages
+    </button>
+    <button
+      (click)="AdminRequests(TICKETREQUESTMESSAGES)"
+      [ngClass]="
+        seletedRequests === TICKETREQUESTMESSAGES ? 'selected_color' : ''
+      "
+    >
+      Ticket Request
+    </button>
+    <button
+      (click)="AdminRequests(CHATMESSAGES)"
+      [ngClass]="seletedRequests === CHATMESSAGES ? 'selected_color' : ''"
+    >
+      Chat Request
+    </button>
+    <button
+      (click)="AdminRequests(TICKETRAISEDMESSAGES)"
+      [ngClass]="
+        seletedRequests === TICKETRAISEDMESSAGES ? 'selected_color' : ''
+      "
+    >
+      TicketRaise Messages
+    </button>
+  </div>
+</div>
+<div class="Main-ViewRequest">
+  <div
+    class="ChatRequest position-relative"
+    *ngIf="seletedRequests === CHATMESSAGES"
+  >
+    <ol>
+      <li
+        *ngFor="let chatrequest of ChatRequest; let i = index"
+        [ngClass]="requestCount.includes(chatrequest._id) ? 'bg-info' : ''"
+      >
+        <div>
+          <p>
+            {{ chatrequest.sender.name }} Is Requisting To Chat With
+            {{ chatrequest.opponent.name }}
+            <span>
+              Time : {{ chatrequest.date | date: "dd/MM/yyyy" }}
+              {{ chatrequest.time | date: "hh:mm a" }}
+            </span>
+          </p>
+          <div *ngIf="chatrequest.isPending == true" class="isPending">
+            <button
+              class="btn btn-sm btn-success"
+              (click)="approveUserChatRequest(chatrequest)"
+            >
+              Give Access
+            </button>
+          </div>
+          <div *ngIf="chatrequest.isPending == false">
+            <h2>Approved</h2>
+          </div>
+        </div>
+      </li>
+      <h3 *ngIf="ChatRequest <= 0">No Request Messages</h3>
+      <ngx-spinner
+        bdColor="rgba(0,0,0,0.32)"
+        size="large"
+        color="#8652d5"
+        type="ball-clip-rotate-multiple"
+        [fullScreen]="false"
+      >
+      </ngx-spinner>
+    </ol>
+  </div>
+  <div
+    class="TicketREquest position-relative"
+    *ngIf="seletedRequests === TICKETREQUESTMESSAGES"
+  >
+    <ol>
+      <li
+        *ngFor="let ticketrequest of TicketRequest; let i = index"
+        [ngClass]="requestCount.includes(ticketrequest._id) ? 'bg-info' : ''"
+      >
+        <div>
+          <p>
+            {{ ticketrequest.sender.name }} Is Requisting For
+            {{ ticketrequest.client.name }}
+            <span>
+              Time : {{ ticketrequest.date | date: "dd/MM/yyyy" }}
+              {{ ticketrequest.time | date: "hh:mm a" }}
+            </span>
+          </p>
+          <div *ngIf="ticketrequest.isPending == true" class="isPending">
+            <button
+              class="btn btn-sm btn-success"
+              (click)="approveUserTicketRequest(ticketrequest)"
+            >
+              Give Access
+            </button>
+          </div>
+          <div *ngIf="ticketrequest.isPending == false">
+            <h2>Approved</h2>
+          </div>
+        </div>
+      </li>
+      <h3 *ngIf="TicketRequest <= 0" class="text-danger fs-3 m-3">
+        No Request Messages
+      </h3>
+      <ngx-spinner
+        bdColor="rgba(0,0,0,0.32)"
+        size="large"
+        color="#8652d5"
+        type="ball-clip-rotate-multiple"
+        [fullScreen]="false"
+      >
+      </ngx-spinner>
+    </ol>
+  </div>
+  <div
+    class="TicketREquest position-relative px-2"
+    *ngIf="seletedRequests === ADMIN_MESSAGES"
+  >
+    <ol>
+      <li *ngFor="let messages of adminMessages; let i = index">
+        <div class="message">
+          <div>
+            <p>Message : {{ messages.content }}</p>
+            <p>Sent By :{{ messages.sender.name }}</p>
+            <p>Time :{{ messages.time | date: "hh:mm a" }}</p>
+          </div>
+          <div>
+            <p>Delivered To : {{ messages.deliveredTo.length }}</p>
+            <p>Seen By : {{ messages.viewedBy.length }}</p>
+          </div>
+        </div>
+      </li>
+
+      <ngx-spinner
+        bdColor="rgba(0,0,0,0.32)"
+        size="large"
+        color="#8652d5"
+        type="ball-clip-rotate-multiple"
+        [fullScreen]="false"
+      >
+      </ngx-spinner>
+      <h3 *ngIf="adminMessages <= 0">No Request Messages</h3>
+    </ol>
+  </div>
+  <div
+    class="TicketREquest position-relative px-2"
+    *ngIf="seletedRequests === TICKETRAISEDMESSAGES"
+  >
+    <ol>
+      <li
+        *ngFor="let messages of raiseTicketMessages; let i = index"
+        class="d-flex justify-content-between"
+      >
+        <div class="message">
+          <div>
+            <p>Message : {{ messages.content }}</p>
+            <p>Sent By :{{ messages.sender.name }}</p>
+            <p>Time :{{ messages.time | date: "hh:mm a" }}</p>
+          </div>
+        </div>
+        <div *ngIf="messages.isPending == true" class="isPending">
+          <button class="btn btn-sm btn-success">Approved</button>
+        </div>
+      </li>
+
+      <ngx-spinner
+        bdColor="rgba(0,0,0,0.32)"
+        size="large"
+        color="#8652d5"
+        type="ball-clip-rotate-multiple"
+        [fullScreen]="false"
+      >
+      </ngx-spinner>
+      <h3 *ngIf="adminMessages <= 0">No Request Messages</h3>
+    </ol>
+  </div>
+</div>

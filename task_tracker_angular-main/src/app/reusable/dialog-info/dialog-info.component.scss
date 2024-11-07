@@ -1,0 +1,23 @@
+.info {
+  background-color: white;
+  width: auto;
+  max-width: 380px;
+}
+
+.info-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px;
+}
+
+.content {
+  padding: 8px;
+  text-align: center;
+}

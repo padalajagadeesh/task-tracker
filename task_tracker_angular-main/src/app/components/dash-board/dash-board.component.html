@@ -1,0 +1,230 @@
+<div class="admin-main-container d-flex">
+  <div class="admin-details">
+    <h2>Admin Dashboard</h2>
+    <div class="admin-status-cards">
+      <h4>User Status :</h4>
+      <div class="card-list d-flex">
+        <div class="card">
+          <div
+            class="card-section d-flex align-items-center justify-content-between"
+          >
+            <div class="card-title">
+              <p>{{ info[0] }}</p>
+              <span
+                >{{ UsersStatus?.Available ? UsersStatus?.Available : "0" }} /
+                {{ UserListlength }}
+              </span>
+            </div>
+            <img
+              class="card-img"
+              src="https://cdn-icons-png.flaticon.com/128/5582/5582975.png"
+            />
+          </div>
+          <div
+            class="card-more-info d-flex align-items-center justify-content-between"
+            matTooltip="Click Here"
+            (click)="viewDetails('Available')"
+          >
+            <a>More details</a>
+            <span><i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </div>
+        <div class="card">
+          <div
+            class="card-section d-flex align-items-center justify-content-between"
+          >
+            <div class="card-title">
+              <p>{{ info[1] }}</p>
+              <span
+                >{{ UsersStatus?.Offline ? UsersStatus?.Offline : "0" }}/
+                {{ UserListlength }}</span
+              >
+            </div>
+            <img
+              class="card-img"
+              src="https://cdn-icons-png.flaticon.com/128/5818/5818373.png"
+            />
+          </div>
+          <div
+            class="card-more-info d-flex align-items-center justify-content-between"
+            matTooltip="Click Here"
+            (click)="viewDetails('Offline')"
+          >
+            <a>More details</a>
+            <span><i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </div>
+        <div class="card">
+          <div
+            class="card-section d-flex align-items-center justify-content-between"
+          >
+            <div class="card-title">
+              <p>{{ info[2] }}</p>
+              <span
+                >{{
+                  UsersStatus?.BreakFastBreak
+                    ? UsersStatus?.BreakFastBreak
+                    : "0" && UsersStatus?.LunchBreak
+                      ? UsersStatus?.LunchBreak
+                      : "0"
+                }}
+                / {{ UserListlength }}</span
+              >
+            </div>
+            <img
+              class="card-img"
+              src="https://cdn-icons-png.flaticon.com/128/10634/10634938.png"
+            />
+          </div>
+          <div
+            class="card-more-info d-flex align-items-center justify-content-between"
+            matTooltip="Click Here"
+            (click)="viewDetails('Break')"
+          >
+            <a>More details</a>
+            <span><i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </div>
+        <div class="card">
+          <div
+            class="card-section d-flex align-items-center justify-content-between"
+          >
+            <div class="card-title">
+              <p>{{ info[3] }}</p>
+              <span
+                >{{ UsersStatus?.OnTicket ? UsersStatus?.OnTicket : "0" }} /
+                {{ UserListlength }}</span
+              >
+            </div>
+            <img
+              class="card-img"
+              src="https://cdn-icons-png.flaticon.com/128/10242/10242204.png"
+            />
+          </div>
+          <div
+            class="card-more-info d-flex align-items-center justify-content-between"
+            matTooltip="Click Here"
+            (click)="viewDetails('OnTicket')"
+          >
+            <a>More details</a>
+            <span><i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </div>
+        <div class="card">
+          <div
+            class="card-section d-flex align-items-center justify-content-between"
+          >
+            <div class="card-title">
+              <p>{{ info[4] }}</p>
+              <span>
+                {{ UsersStatus?.Sleep ? UsersStatus?.Sleep : "0" }}/
+                {{ UserListlength }}</span
+              >
+            </div>
+            <img
+              class="card-img"
+              src="https://cdn-icons-png.flaticon.com/128/2455/2455146.png"
+            />
+          </div>
+          <div
+            class="card-more-info d-flex align-items-center justify-content-between"
+            (click)="viewDetails('Sleep')"
+            matTooltip="Click Here"
+          >
+            <a>More details</a>
+            <span><i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </div>
+      </div>
+      <p class="user-count">Total Users : {{ UserListlength }}</p>
+    </div>
+    <div class="admin-records d-flex">
+      <div class="timezone">
+        <h4>Time Zones</h4>
+        <div class="timezone-list d-flex justify-content-center">
+          <div
+            class="countryTime d-flex align-items-center justify-content-center"
+          >
+            <span>PST</span>
+            <p>{{ pstDate }}</p>
+          </div>
+          <div
+            class="countryTime d-flex align-items-center justify-content-center"
+          >
+            <span>CST</span>
+            <p>{{ cstDate }}</p>
+          </div>
+          <div
+            class="countryTime d-flex align-items-center justify-content-center"
+          >
+            <span>EST</span>
+            <p>{{ est }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="pieChart">
+        <h4>Today Tickets</h4>
+        <div *ngIf="tableData.length">
+          <app-pie-chart
+            [pieChartId]="'pieChartTicket'"
+            [PieChartData]="ChartData"
+          ></app-pie-chart>
+          <p class="user-count">Total Today Tickets : {{ tableData.length }}</p>
+        </div>
+        <h2 *ngIf="tableData <= 0">No Today Tickets</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer-btn-group d-flex align-items-center">
+  <button class="btn btn-primary sample" [routerLink]="['user-list']">
+    User List
+  </button>
+  <button class="btn btn-primary" [routerLink]="['client-list']">
+    Client List
+  </button>
+  <button class="btn btn-primary" [routerLink]="['today-tickets']">
+    Today Tickets
+  </button>
+  <button class="btn btn-info" (click)="sendMessageToAll()">
+    Send Message toAll
+  </button>
+</div>
+
+<!-- requestTicket modal -->
+<ng-template #requestTicketmodal let-d="dismiss">
+  <div class="modal-header p-2 m-0"></div>
+  <div class="modal-body m-2">
+    <label class="ms-2">Request All</label>
+    <textarea
+      class="form-control m-2"
+      placeholder="description"
+      [(ngModel)]="requestticketForm"
+    ></textarea>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-sm btn-danger" (click)="adminCancel(d)">
+      Cancel
+    </button>
+    <button class="btn btn-sm btn-primary" (click)="adminMessage(d)">
+      Adminsend
+    </button>
+  </div>
+</ng-template>
+
+<!-- user Details Model -->
+
+<ng-template #availableModel let-d="dismiss">
+  <div
+    class="modal-header p-3 d-flex justify-content-between bg-info-subtle fs-6"
+  >
+    <span>{{ modalHeaders }}</span>
+    <span (click)="closeModal(d)"><i class="fa-solid fa-xmark"></i></span>
+  </div>
+  <app-table
+    class="usersStatus"
+    [data]="userStatusData"
+    [tableColumns]="userColumns"
+    (nameClick)="ClickUserName($event, d)"
+  ></app-table>
+</ng-template>

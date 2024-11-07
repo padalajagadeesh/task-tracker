@@ -1,0 +1,16 @@
+<div class="main-container" *ngIf="userData$ | async as userData">
+  <app-header
+    [userDetails]="userData"
+    [isAdmin]="userData.isAdmin"
+    [Status]="userData.status"
+    (HamburgerClick)="HamburgerClick($event)"
+  ></app-header>
+  <div class="main-board-content d-flex">
+    <div class="nav-section" [class.collapsed]="isCollapsed">
+      <app-nav-bar></app-nav-bar>
+    </div>
+    <div class="info-section">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

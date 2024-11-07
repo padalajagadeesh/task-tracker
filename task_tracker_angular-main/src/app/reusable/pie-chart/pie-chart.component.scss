@@ -1,0 +1,28 @@
+.chart-legend {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+
+  .grid-item {
+    text-align: center;
+
+    span {
+      font-size: 20px;
+    }
+    &.center {
+      grid-column: span 2;
+    }
+  }
+}
+
+.chart-container {
+  width: fit-content;
+  margin: auto;
+  align-items: center;
+}
+
+canvas {
+  width: 200px !important;
+  height: 200px !important;
+  margin: 0 auto 10px;
+}

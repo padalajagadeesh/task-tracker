@@ -1,0 +1,241 @@
+:host {
+  width: 100%;
+}
+.admin-main-container {
+  padding: 10px;
+
+  .nav-bar {
+    .admin-profile {
+      text-align: center;
+      margin: 10px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #dedede;
+
+      .admin-pic {
+        position: relative;
+        width: fit-content;
+        margin: auto;
+
+        img {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+        }
+
+        span {
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          background-color: #00ff00;
+          display: block;
+          position: absolute;
+          top: 2px;
+          right: 2px;
+        }
+      }
+
+      .admin-name {
+        margin: 10px 0 4px 0;
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .admin-id,
+      .admin-role {
+        font-size: 12px;
+        line-height: 18px;
+        display: block;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+    }
+  }
+
+  .admin-details {
+    width: 100%;
+    padding: 10px;
+
+    h2 {
+      margin: 0;
+    }
+
+    .admin-status-cards {
+      padding: 20px 10px;
+      margin: 20px 0;
+      background: #fff;
+      color: #000;
+      border-radius: 12px;
+
+      h4 {
+        padding-bottom: 4px;
+        border-bottom: 1px solid #dedede;
+        font-weight: bold;
+      }
+
+      .card-list {
+        flex-wrap: wrap;
+        gap: 10px;
+
+        .card {
+          background: #1b2a47;
+          border-radius: 12px;
+          width: calc(20% - 8px);
+          min-width: 160px;
+          border: 2px solid #1b2a47;
+          .card-section {
+            flex-direction: row;
+            padding: 10px;
+            color: #fff;
+          }
+
+          .card-more-info {
+            padding: 10px;
+            background: #fff;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+          }
+          .card-more-info:hover {
+            cursor: pointer;
+            color: #1e51dd;
+            background: antiquewhite;
+          }
+
+          .card-title {
+            margin: 0;
+            font-weight: 500;
+
+            p {
+              font-size: 16px;
+              margin-bottom: 4px;
+            }
+          }
+
+          img {
+            width: 60px;
+            height: 60px;
+          }
+        }
+      }
+
+      .user-count {
+        margin: 20px 0 0;
+      }
+    }
+
+    .admin-records {
+      gap: 20px;
+
+      h4 {
+        padding-bottom: 4px;
+        border-bottom: 1px solid #dedede;
+        font-weight: bold;
+      }
+
+      .timezone {
+        width: 50%;
+        padding: 20px 10px;
+        background: #fff;
+        color: #000;
+        border-radius: 12px;
+        height: fit-content;
+
+        .timezone-list {
+          gap: 10px;
+
+          .countryTime {
+            width: 144px;
+            flex-direction: column;
+            height: 144px;
+            gap: 6px;
+            border-radius: 50%;
+            box-shadow:
+              inset 8px 8px 8px #cbced1,
+              inset -8px -8px 8px #e7cfcf;
+
+            span {
+              font-size: 18px;
+              line-height: 24px;
+              font-weight: bold;
+              margin: 0;
+            }
+
+            p {
+              font-size: 16px;
+              line-height: 20px;
+              font-weight: 500;
+              margin: 0;
+            }
+          }
+        }
+      }
+
+      .pieChart {
+        width: 50%;
+        padding: 20px 10px;
+        background: #fff;
+        color: #000;
+        border-radius: 12px;
+        h4 {
+          font-weight: bold;
+        }
+
+        .user-count {
+          margin: 20px 0 0;
+        }
+      }
+    }
+  }
+}
+
+.footer-btn-group {
+  padding: 10px;
+  gap: 10px;
+  border-top: 1px solid;
+}
+
+@media screen and (max-width: 1150px) {
+  .card {
+    width: calc(25% - 8px) !important;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .card {
+    width: calc(33.33% - 8px) !important;
+  }
+
+  .admin-records {
+    flex-direction: column;
+
+    .timezone,
+    .pieChart {
+      width: 100% !important;
+    }
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .card {
+    width: calc(50% - 8px) !important;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .card {
+    width: 100% !important;
+  }
+}
+
+.usersStatus {
+  &::ng-deep {
+    .offline {
+      display: none;
+    }
+  }
+  &::ng-deep {
+    .mat-mdc-paginator-page-size {
+      display: none;
+      background-color: #00ff00;
+    }
+  }
+}
